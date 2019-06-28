@@ -273,3 +273,45 @@ class kolibri_interface:
             **kwargs
         )
         return self.parse_response(response)
+
+    # @testable
+    # def get_children(self, parent, user_kind="superuser"):
+    #     end_point = "/api/content/contentnode_slim"
+    #     url_with_end_point = urljoin(self.URL, end_point)
+    #     data = locals()
+    #     return self.get_request(data, url_with_end_point)
+
+    @testable
+    def get_channels(self, available=True):
+        end_point = "/api/content/channel"
+        url_with_end_point = urljoin(self.URL, end_point)
+        data = dict()
+        params = locals()
+        return self.get_request(data, url_with_end_point, params=params)
+
+    @testable
+    def get_children(self, parent, user_kind="superuser"):
+        end_point = "/api/content/contentnode_slim"
+        url_with_end_point = urljoin(self.URL, end_point)
+        data = dict()
+        params = locals()
+        return self.get_request(data, url_with_end_point, params=params)
+
+    @testable
+    def get_node_details(self, node):
+        end_point = "/api/content/contentnode/{}".format(node)
+        url_with_end_point = urljoin(self.URL, end_point)
+        data = dict()
+        return self.get_request(data, url_with_end_point)
+
+    @testable
+    def fetch_content(self, storage_url, save_at=None):
+        url_with_end_point = urljoin(self.URL, storage_url)
+        data = dict()
+        res = self.get_request(data, url_with_end_point)
+        if save_at is None:
+            return res
+        else:
+            with open(save_at, "wb") as my_file:
+                my_file.write(res.content)
+            return res
