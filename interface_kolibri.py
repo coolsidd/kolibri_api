@@ -60,14 +60,10 @@ def testable(func):
     return wrapper
 
 
-ADMIN_NAME = "DUMMY_NAME"
-API_KEY_GLOBAL = "DUMMY_KEY"
-
-
 class kolibri_interface:
     def __init__(
         self,
-        URL="http://localhost:8080",
+        URL="http://kolibridemo.learningequality.org/",
         RETRIES=20,
         TEST_MODE=False,
         TEST_MODE_DEFAULT_EMPTY=False,
